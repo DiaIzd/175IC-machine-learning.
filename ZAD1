@@ -1,0 +1,114 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled5.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyO4Pkvn7z7PkcxUQwc9Pd9z",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/DiaIzd/175IC-machine-learning./blob/main/ZAD1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "jNht3-Mjh0dU",
+        "outputId": "86db98b6-217b-4b64-8087-37c5d5be2ac9",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "source": [
+        "# print(\"Diana Izdebska\")\n",
+        "#!pip install scikit-learn\n",
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "import sklearn as sk\n",
+        "from sklearn.preprocessing import LabelEncoder, StandardScaler\n",
+        "dataClothes = {\n",
+        "    'size':['XXS','XS','S','M','M','L','L','XL','XL','XXL','XXL','XXXL','XXXL'],\n",
+        "    'color':['BLACK','WHITE','YELLOW','ORANGE','BLUE','BROWN','PURPLE','RED','PINK','DARKBLUE','GREEN','GRAY','VIOLET'],\n",
+        "    'gender':['FEMALE','FEMALE','FEMALE','FEMALE','MALE','FEMALE','MALE','FEMALE','MALE','FEMALE','MALE','FEMALE','MALE'],\n",
+        "    'price':[60.0,65.0,70.0,75.0,80.0,85.0,90.0,95.0,100.0,105.0,110.0,115.0,120.0],\n",
+        "    'weight':[150.0,170.0,190.0,210.0,230.0,250.0,270.0,290.0,310.0,330.0,350.0,370.0,390.0],\n",
+        "    'bought':['NO', 'YES','NO','NO','YES','NO','YES','YES','YES','NO','NO','NO','NO']\n",
+        "}\n",
+        "df_raw = pd.DataFrame(data=dataClothes)\n",
+        "df = df_raw.copy()\n",
+        "\n",
+        "for col in ['size','color','gender','bought']:\n",
+        "  df[col] = df[col].astype('category')\n",
+        "#df.info()\n",
+        "df.describe(include=['category']).T\n",
+        "le = LabelEncoder()\n",
+        "le.fit_transform(df['bought'])\n",
+        "pd.get_dummies(data=df, drop_first = True)\n",
+        "scaler = StandardScaler()\n",
+        "df[['price','weight']] = scaler.fit_transform(df[['price','weight']])\n",
+        "print(df)\n",
+        "print(df_raw)"
+      ],
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "    size     color  gender     price    weight bought\n",
+            "0    XXS     BLACK  FEMALE -1.603567 -1.603567     NO\n",
+            "1     XS     WHITE  FEMALE -1.336306 -1.336306    YES\n",
+            "2      S    YELLOW  FEMALE -1.069045 -1.069045     NO\n",
+            "3      M    ORANGE  FEMALE -0.801784 -0.801784     NO\n",
+            "4      M      BLUE    MALE -0.534522 -0.534522    YES\n",
+            "5      L     BROWN  FEMALE -0.267261 -0.267261     NO\n",
+            "6      L    PURPLE    MALE  0.000000  0.000000    YES\n",
+            "7     XL       RED  FEMALE  0.267261  0.267261    YES\n",
+            "8     XL      PINK    MALE  0.534522  0.534522    YES\n",
+            "9    XXL  DARKBLUE  FEMALE  0.801784  0.801784     NO\n",
+            "10   XXL     GREEN    MALE  1.069045  1.069045     NO\n",
+            "11  XXXL      GRAY  FEMALE  1.336306  1.336306     NO\n",
+            "12  XXXL    VIOLET    MALE  1.603567  1.603567     NO\n",
+            "    size     color  gender  price  weight bought\n",
+            "0    XXS     BLACK  FEMALE   60.0   150.0     NO\n",
+            "1     XS     WHITE  FEMALE   65.0   170.0    YES\n",
+            "2      S    YELLOW  FEMALE   70.0   190.0     NO\n",
+            "3      M    ORANGE  FEMALE   75.0   210.0     NO\n",
+            "4      M      BLUE    MALE   80.0   230.0    YES\n",
+            "5      L     BROWN  FEMALE   85.0   250.0     NO\n",
+            "6      L    PURPLE    MALE   90.0   270.0    YES\n",
+            "7     XL       RED  FEMALE   95.0   290.0    YES\n",
+            "8     XL      PINK    MALE  100.0   310.0    YES\n",
+            "9    XXL  DARKBLUE  FEMALE  105.0   330.0     NO\n",
+            "10   XXL     GREEN    MALE  110.0   350.0     NO\n",
+            "11  XXXL      GRAY  FEMALE  115.0   370.0     NO\n",
+            "12  XXXL    VIOLET    MALE  120.0   390.0     NO\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "EW4w_trHzXFX"
+      },
+      "source": [
+        ""
+      ]
+    }
+  ]
+}
